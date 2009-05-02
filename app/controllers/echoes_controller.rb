@@ -21,15 +21,11 @@ class EchoesController < ApplicationController
     else
       request_token = client.request_token
       self.oauth_state = {:request_token => request_token.token, :request_secret => request_token.secret}
-      logger.debug( {:session => session}.inspect)
       redirect_to request_token.authorize_url
     end
   end
 
   def auth
-    logger.debug( {:session => session}.inspect)
-
-    logger.debug oauth_state.inspect
     access_token = client.authorize(oauth_state[:request_token], oauth_state[:request_secret])
     self.oauth_state = {:token => access_token.token, :secret => access_token.secret}
 
