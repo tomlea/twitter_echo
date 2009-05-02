@@ -1,0 +1,9 @@
+<p>
+  <b>Username:</b>
+  <%=h @echo.username %>
+</p>
+
+<%= debug(@echo.auth_details) %>
+
+<%= link_to 'Edit', edit_echo_path(@echo) %> |
+<%= link_to 'Back', echoes_path %>
