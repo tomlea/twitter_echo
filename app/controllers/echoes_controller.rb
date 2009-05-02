@@ -41,7 +41,6 @@ class EchoesController < ApplicationController
 
     respond_to do |format|
       if @echo.save
-        flash[:notice] = 'Echo was successfully created.'
         format.html { redirect_to(@echo) }
         format.xml  { render :xml => @echo, :status => :created, :location => @echo }
       else
@@ -56,7 +55,7 @@ class EchoesController < ApplicationController
     @echo.destroy
 
     respond_to do |format|
-      format.html { redirect_to(echo_url) }
+      format.html { redirect_to(new_echo_url) }
       format.xml  { head :ok }
     end
   end

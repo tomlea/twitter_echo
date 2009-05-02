@@ -1,9 +1,7 @@
-<p>
-  <b>Username:</b>
-  <%=h @echo.username %>
-</p>
-
-<%= debug(@echo.auth_details) %>
-
-<%= link_to 'Edit', edit_echo_path(@echo) %> |
-<%= link_to 'Back', echoes_path %>
+<div id="show_echo_page">
+  <h1>Echoing of direct messages for <strong><%=h @echo.username %></strong> is <span class="on">enabled</span></h1>
+  <p>
+    <%= button_to 'Stop Echoing', @echo, :method => :delete %>
+  </p>
+  <%= image_tag "sound-small.jpg" %>
+</div>
