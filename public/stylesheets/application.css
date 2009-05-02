@@ -75,3 +75,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
+
+#another_account {
+  border: 1px solid #660;
+  background: #fea;
+  padding: 1em;
+}
+

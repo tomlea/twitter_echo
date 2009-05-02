@@ -1,4 +1,14 @@
 class EchoesController < ApplicationController
+  def index
+    if client.authorized?
+      if @echo = Echo.find_by_username(screen_name)
+        redirect_to @echo
+      else
+        redirect_to new_echo_path
+      end
+    end
+  end
+
   def show
     @echo = Echo.find_by_username(params[:id])
     respond_to do |format|
@@ -9,6 +19,11 @@ class EchoesController < ApplicationController
 
   def new
     @echo = Echo.new(:username => screen_name)
+  end
+
+  def forget_me
+    self.oauth_state = {}
+    redirect_to root_path
   end
 
   def begin_auth

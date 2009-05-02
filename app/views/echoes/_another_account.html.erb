@@ -1,0 +1,9 @@
+<%= link_to_function("use a different account?", "$('another_account').toggle()") %>
+
+<div id="another_account" style="display:none;">
+  <p>
+    TwitterEcho will only work for the Twitter account you are currently logged in with.
+    If you wish to use a different account, please use <%= link_to "twitter's site", "http://twitter.com/" %> 
+    to log into that account, then <%= link_to "restart the process", forget_me_echoes_path, :method => :delete %>.
+  </p>
+</div>
