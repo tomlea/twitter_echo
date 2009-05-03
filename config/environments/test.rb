@@ -6,6 +6,6 @@ config.action_view.cache_template_loading            = true
 config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
-config.gem "thoughbot-factory_girl", :source => "http://gems.github.com/", :lib => "factory_girl"
-config.gem "thoughbot-shoulda", :source => "http://gems.github.com/", :lib => "shoulda"
+config.gem "thoughtbot-factory_girl", :source => "http://gems.github.com/", :lib => "factory_girl"
+config.gem "thoughtbot-shoulda", :source => "http://gems.github.com/", :lib => "shoulda"
 
