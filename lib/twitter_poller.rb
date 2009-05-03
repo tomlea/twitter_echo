@@ -1,4 +1,5 @@
 class TwitterPoller
+  include Comparable
   MARGIN_FOR_ERROR = 50
   attr_reader :next_poll, :client
 
@@ -9,6 +10,7 @@ class TwitterPoller
         :token => token,
         :secret => secret
     )
+    calculate_next_poll
   end
 
   def poll
@@ -32,17 +34,22 @@ class TwitterPoller
   def calculate_next_poll
     begin
       rate_limit_status = client.rate_limit_status
-      remaining_hits = rate_limit_status["remaining-hits"].to_i - MARGIN_FOR_ERROR
-      reset_time_in_seconds = rate_limit_status["reset-time-in-seconds"].to_f
+      remaining_hits = rate_limit_status["remaining_hits"].to_i - MARGIN_FOR_ERROR
+      reset_time_in_seconds = rate_limit_status["reset_time_in_seconds"].to_i
+      remaining_seconds = (Time.at(reset_time_in_seconds) - Time.now).to_i
 
-      if remaining_hits == 0
-        @next_poll = reset_time_in_seconds.seconds.from_now
+      if remaining_hits <= 0
+        @next_poll = Time.at(reset_time_in_seconds)
       else
-        @next_poll = (reset_time_in_seconds/remaining_hits).ceil.seconds.from_now
+        @next_poll = (remaining_seconds/remaining_hits).ceil.seconds.from_now
       end
     rescue
       @next_poll = 60.seconds.from_now
       raise
     end
+  end
+
+  def <=>(other)
+    next_poll <=> other.next_poll
   end
 end

@@ -1,14 +1,16 @@
 class TwitterEchoPoller < TwitterPoller
   def initialize(echo)
-    super(echo.auth_details.token, echo.auth_details.secret)
+    super(echo.auth_details[:token], echo.auth_details[:secret])
     @echo = echo
   end
 
-  def run
-    echo.reload
-    client.messages(:received).map{|m| [m.id, m.sender.screen_name, m.text] }.reverse.each do |id, user, message|
-      # client.status(:post, "#{message} [@#{user}]") unless echo.relayed?(id)
-      handled_messages << id
+  def act
+    @echo.reload
+    is_fast_forward = @echo.fast_forward?
+    messages = client.messages
+    messages.reverse.map{|m| [m["id"], m["sender_screen_name"], m["text"]] }.reverse.each do |id, user, message|
+      client.update("@#{user} says '#{message}'") unless is_fast_forward or @echo.relayed?(id)
+      @echo.relayed!(id)
     end
   end
 end
