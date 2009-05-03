@@ -11,10 +11,6 @@ class EchoesController < ApplicationController
 
   def show
     @echo = Echo.find_by_username(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @echo }
-    end
   end
 
   def new
@@ -54,14 +50,10 @@ class EchoesController < ApplicationController
   def create
     @echo = Echo.new(:username => screen_name, :auth_details => oauth_state.slice(:secret, :token))
 
-    respond_to do |format|
-      if @echo.save
-        format.html { redirect_to(@echo) }
-        format.xml  { render :xml => @echo, :status => :created, :location => @echo }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @echo.errors, :status => :unprocessable_entity }
-      end
+    if @echo.save
+      redirect_to(@echo)
+    else
+      render :action => "new"
     end
   end
 
@@ -69,10 +61,7 @@ class EchoesController < ApplicationController
     @echo = Echo.find_by_username(params[:id])
     @echo.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(new_echo_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(new_echo_url) }
   end
 
 private
