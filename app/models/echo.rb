@@ -7,4 +7,14 @@ class Echo < ActiveRecord::Base
   def to_param
     username
   end
+
+  def relayed?(message_id)
+    self.relayed_ids && self.relayed_ids.split(",").map(&to_i).include?(message_id)
+  end
+
+  def relayed!(message_id)
+    self.relayed_ids ||= ""
+    self.relayed_ids = [self.relayed_ids, message_id.to_s].compact.join(",")
+    save!
+  end
 end
