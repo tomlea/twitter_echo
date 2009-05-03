@@ -61,7 +61,7 @@ class EchoesController < ApplicationController
     @echo = Echo.find_by_username(params[:id])
     @echo.destroy
 
-    redirect_to(new_echo_url) }
+    redirect_to(new_echo_url)
   end
 
 private
