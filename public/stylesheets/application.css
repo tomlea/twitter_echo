@@ -3,6 +3,13 @@ h1 {
   margin: -1em -1em 1em -1em;
   padding: 1em 0;
 }
+
+hr {
+  border: none;
+  height: 1px;
+  background: #ccc;
+  margin: 1em 0;
+}
 #home_page input, #new_echo_page input, #show_echo_page input {
   border: 1px solid #000;
   background: #aaa;
@@ -72,6 +79,7 @@ span.off {
   background: #fff;
   padding: 10px;
   margin: 0 auto;
+  border: 1px solid #666;
 }
 
 body {
