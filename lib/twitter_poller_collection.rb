@@ -12,9 +12,7 @@ class TwitterPollerCollection < Array
 
       sort!
 
-      if first.next_poll > Time.now
-        sleep_time = (first.next_poll - Time.now).to_i
-        puts "Sleeping for #{sleep_time}, next_poll = #{first.next_poll}"
+      if (sleep_time = (first.next_poll - Time.now).to_i) > 0
         sleep(sleep_time)
         next
       end
