@@ -1,3 +1,22 @@
+h1 {
+  background: #ffa;
+  margin: -1em -1em 1em -1em;
+  padding: 1em 0;
+}
+#home_page input, #new_echo_page input, #show_echo_page input {
+  border: 1px solid #000;
+  background: #aaa;
+  font-size: 5em;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+#home_page input:hover, #new_echo_page input:hover, #show_echo_page input:hover {
+  background: #aaf;
+}
+
+
+
 #home_page {
   text-align:center;
 }
@@ -22,13 +41,6 @@ strong {
   text-align:center;
 }
 
-#new_echo_page input {
-  border: 1px solid #000;
-  background: #aaa;
-  font-size: 5em;  
-}
-
-
 #new_echo_page input:hover {
   background: #ccc;
 }
@@ -36,12 +48,6 @@ strong {
 
 #show_echo_page {
   text-align:center;  
-}
-
-#show_echo_page input {
-  border: 1px solid #000;
-  background: #aaa;
-  font-size: 5em;  
 }
 
 #show_echo_page input:hover {
@@ -65,9 +71,7 @@ span.off {
   width: 800px;
   background: #fff;
   padding: 10px;
-  margin: 0;
-  left: 50%;
-  margin-left: 300px;
+  margin: 0 auto;
 }
 
 body {
@@ -83,3 +87,12 @@ body {
   padding: 1em;
 }
 
+#intro p{
+  text-align: justify;
+  font-size: 1.3em;
+  margin: 1em 0;
+}
+
+#intro {
+  margin: 4em;
+}
