@@ -1,10 +1,6 @@
 class TwitterPollerCollection < Array
-  def initialize
-    @running = true
-  end
-
   def start_polling
-    while @running
+    while true
       if empty?
         sleep 10
         next
@@ -19,9 +15,5 @@ class TwitterPollerCollection < Array
 
       first.poll
     end
-  end
-
-  def stop!
-    @running = false
   end
 end
