@@ -9,19 +9,23 @@ module EndPoint
     Echo.all.each do |echo|
       @collection << TwitterEchoPoller.new(echo)
     end
+    @queue = Queue.new
+    @collection.each_poll do |collection|
+      unless @queue.empty?
+        id = @queue.shift
+        collection << TwitterEchoPoller.new(Echo.find(id))
+      end
+    end
     @collection.start_polling
   end
 
   def add(id)
     del(id)
-    @collection << TwitterEchoPoller.new(Echo.find(id))
-    p "Adding #{id}"
+    @queue.push(id)
   end
 
   def del(id)
-    echo = Echo.find(id)
-    @collection.delete_if{|ep| ep.echo == echo }
-    p "Deling #{id}"
+    @collection.delete_if{|ep| ep.echo.id == id }
   end
 
   extend self
