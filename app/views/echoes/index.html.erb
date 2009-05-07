@@ -1,3 +1,4 @@
+<% content_for :title do%>It says what you tell it to say.<% end  %>
 <div id="home_page">
   <h1>Twitter Echo</h1>
   <div id="intro">
@@ -11,6 +12,7 @@
       TwitterEcho, and then click the link below.
     </p>
   </div>
+
   <%= image_tag "sound.jpg" %>
   <p>
     <%= button_to 'Authorise for Twitter »', begin_auth_echoes_path, :method => :get %>
