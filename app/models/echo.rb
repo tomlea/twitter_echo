@@ -20,7 +20,7 @@ class Echo < ActiveRecord::Base
 
   def relayed!(message_id)
     self.relayed_ids ||= ""
-    self.relayed_ids = [self.relayed_ids, message_id.to_s].compact.join(",")
+    self.relayed_ids = [message_id.to_s, *self.relayed_ids.to_s.split(",")].uniq.compact.join(",")
     save!
   end
 
