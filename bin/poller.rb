@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
+require "logger"
+RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+
 require File.dirname(__FILE__) + '/../config/environment'
 
 require 'drb'
+require 'daemons'
 
 module EndPoint
   def start
@@ -31,6 +35,7 @@ module EndPoint
   extend self
 end
 
-DRb.start_service "druby://localhost:59557", EndPoint
-EndPoint.start
-
+Daemons.run_proc('poller.rb', {:dir_mode => :normal, :dir => File.join(File.dirname(__FILE__), *%w[.. tmp pids])}) do
+  DRb.start_service "druby://localhost:59557", EndPoint
+  EndPoint.start
+end
