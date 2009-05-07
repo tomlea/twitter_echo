@@ -7,7 +7,6 @@ class TwitterEchoPoller < TwitterPoller
 
   def act
     @echo.reload
-    p "Polling for #{@echo.inspect}"
     is_fast_forward = @echo.fast_forward?
     messages = client.messages
     messages.reverse.map{|m| [m["id"], m["sender_screen_name"], m["text"]] }.reverse.each do |id, user, message|
