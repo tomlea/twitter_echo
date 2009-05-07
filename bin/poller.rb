@@ -35,7 +35,9 @@ module EndPoint
   extend self
 end
 
-Daemons.run_proc('poller.rb', {:dir_mode => :normal, :dir => File.join(File.dirname(__FILE__), *%w[.. tmp pids])}) do
+pids_path = File.join(File.dirname(__FILE__), *%w[.. tmp pids])
+FileUtils.mkdir_p pids_path
+Daemons.run_proc('poller.rb', {:dir_mode => :normal, :dir => pids_path}) do
   DRb.start_service "druby://localhost:59557", EndPoint
   EndPoint.start
 end
