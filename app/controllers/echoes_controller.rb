@@ -86,7 +86,11 @@ private
   end
 
   def screen_name
-    @screen_name ||= client.authorized? && client.info["screen_name"]
+    Timeout::timeout(5) do
+      @screen_name ||= client.authorized? && client.info["screen_name"]
+    end
+  rescue Timeout::Error
+    raise TwitterTimeout, "Twitter was too slow when getting the username."
   end
 
   def oauth_state=(data)
